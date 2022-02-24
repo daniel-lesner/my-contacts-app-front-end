@@ -10,11 +10,11 @@ import getLibrary from './utils/getLibrary';
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
-      <HeaderComponent />
+      <HeaderComponent title="My Contacts App" />
       <MainComponent />
     </Web3ReactProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

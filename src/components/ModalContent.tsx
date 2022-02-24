@@ -8,7 +8,11 @@ import { TContact } from './MainComponent';
 const Title = styled.header`
   text-align: center;
   margin: 0.3em 0;
-  font-size: 2em;
+  font-size: inherit;
+`;
+
+const Main = styled.div`
+  margin-bottom: 1em;
 `;
 
 type ModalContentProps = {
@@ -16,7 +20,7 @@ type ModalContentProps = {
 }
 
 const ModalContent = ({ object } : ModalContentProps) => (
-  <>
+  <Main>
     <Title>
       {object ? 'Edit Contact' : 'Add new contact'}
     </Title>
@@ -64,7 +68,7 @@ const ModalContent = ({ object } : ModalContentProps) => (
     <Button color={configData.THEME_COLORS.SECONDARY}>
       {object ? 'Update' : 'Submit'}
     </Button>
-  </>
+  </Main>
 );
 
 ModalContent.defaultProps = {

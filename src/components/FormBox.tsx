@@ -7,18 +7,18 @@ const Form = styled.div`
   display: grid;
   place-content: center;
   margin: 0.8em;
-  font-size: 0.8em;
+  font-size: inherit;
   text-align: left;
 `;
 
 const Label = styled.label`
 width: 100%;
   margin-bottom: 0.4rem;
-  font-size: 1.5em;
+  font-size: inherit;
 `;
 
 const Input = styled.input`
-  font-size: 1.125rem;
+  font-size: inherit;
   font-weight: 500;
   line-height: 1;
   border: none;

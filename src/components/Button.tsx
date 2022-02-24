@@ -15,15 +15,14 @@ declare module '@emotion/react' {
 }
 
 const Button = styled.button`
-  margin: 4vw 8vw;
-  padding: 1vw 4vw;
-  font-size: 2vw;
+  padding: 0.6em 2em;
+  font-size: inherit;
   background-color: ${(props) => props.theme.color};
   cursor: pointer;
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 `;
 
 type ButtonComponentProps = {

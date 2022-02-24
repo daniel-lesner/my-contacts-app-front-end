@@ -4,12 +4,15 @@ import { useWeb3React } from '@web3-react/core';
 import { Contract } from 'ethers';
 import configData from '../config.js';
 import ContactCard from './ContactCard';
+import AddressBar from './AddressBar';
 import Modal from './Modal';
 import Button from './Button';
 import injectedConnector from '../utils/injectedConnector';
 import getContactStorageContract from '../utils/getContactStorageContract';
+import EmptyContactsMessage from './EmptyContactsMessage';
 
 const Main = styled.main`
+  padding: 2em 0;
   text-align: center;
   background-color: ${configData.THEME_COLORS.SECONDARY};
   min-height: 100vh;
@@ -17,18 +20,25 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   // justify-content: center;
-  font-size: 2vw;
   color: white;
 `;
 
+const ContactGrid = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 2em 0;
+  align-items: center;
+`;
+
 const LoadingIcon = styled.div`
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid ${configData.THEME_COLORS.PRIMARY}; 
+  border: 0.8em solid #f3f3f3;
+  border-top: 0.8em solid ${configData.THEME_COLORS.PRIMARY}; 
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 1em;
+  height: 1em;
   animation: spin 2s linear infinite;
-  margin: 25px 0;
+  margin: 2em 0;
 
   @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -49,7 +59,7 @@ export type TContact = {
 };
 
 const App = () => {
-  const [mockData, setMockData] = useState<TContact[]>([]);
+  const [contactData, setContactData] = useState<TContact[]>([]);
   const [isModalOpen, setModalOpen] = useState('');
   const [contractInstance, setContractInstance] = useState<Contract>();
   const [isActionPending, setActionPending] = useState(false);
@@ -69,6 +79,7 @@ const App = () => {
   const disconnectWallet = async () => {
     try {
       deactivate();
+      setContactData([]);
     } catch (error) {
       console.log(error);
     }
@@ -97,7 +108,7 @@ const App = () => {
       }
     }
 
-    setMockData(results);
+    setContactData(results);
     setActionPending(false);
   };
 
@@ -109,7 +120,7 @@ const App = () => {
       await contractInstance?.setContact(account, JSON.stringify(newObject));
 
       contractInstance?.once('ContactAdded', async (sender, contactId) => {
-        setMockData((state: any) => [
+        setContactData((state: any) => [
           ...state,
           { ...newObject, id: contactId },
         ]);
@@ -126,7 +137,7 @@ const App = () => {
       await contractInstance?.deleteContact(account, id);
 
       contractInstance?.once('ContactDeleted', async () => {
-        setMockData((state) => state.filter((item: TContact) => item.id !== id));
+        setContactData((state) => state.filter((item: TContact) => item.id !== id));
         setActionPending(false);
       });
     } catch (error) {
@@ -141,7 +152,7 @@ const App = () => {
       await contractInstance?.modifyContact(account, id, JSON.stringify(updatedObject));
 
       contractInstance?.once('ContactModified', async () => {
-        setMockData((state) => state.map((item: TContact) => (
+        setContactData((state) => state.map((item: TContact) => (
           item.id === id ? { ...updatedObject, id } : item)));
         setActionPending(false);
       });
@@ -166,7 +177,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (!!library && !!account) {
+    if (account) {
       setContractInstance(getContactStorageContract(account, library));
     }
   }, [account]);
@@ -181,21 +192,15 @@ const App = () => {
         <Modal
           onFormSubmit={onFormSubmit}
           state={isModalOpen}
-          mockData={mockData}
+          contactData={contactData}
         />
       )}
-      {library
-        ? (
-          <>
-            <div>
-              <span>
-                Connected with
-                {' '}
-                <b>{account}</b>
-              </span>
-              <button type="button" onClick={disconnectWallet}>Disconnect</button>
-            </div>
-            <Main onClick={() => isModalOpen && setModalOpen('')}>
+      {account && <AddressBar account={account} disconnectWallet={disconnectWallet} />}
+      <Main onClick={() => isModalOpen && setModalOpen('')}>
+        {account
+          ? (
+            <>
+
               {isActionPending
                 ? <LoadingIcon />
                 : (
@@ -206,9 +211,9 @@ const App = () => {
                     Add contact
                   </Button>
                 )}
-              {mockData.length !== 0 ? (
-                <>
-                  {mockData.map((item) => (
+              {contactData.length !== 0 ? (
+                <ContactGrid>
+                  {contactData.map((item) => (
                     <ContactCard
                       contactInfo={item}
                       key={item.id}
@@ -220,26 +225,21 @@ const App = () => {
                       }
                     />
                   ))}
-                </>
+                </ContactGrid>
               ) : (
-                <>
-                  <div>Contacts list is empty!</div>
-                  <div>Please use the button above to add a contact.</div>
-                </>
+                <EmptyContactsMessage />
               )}
-            </Main>
-          </>
-        )
-        : (
-          <Main>
+            </>
+          )
+          : (
             <Button
               onClick={connectWallet}
               color={configData.THEME_COLORS.PRIMARY}
             >
               Connect to Metamask
             </Button>
-          </Main>
-        )}
+          )}
+      </Main>
     </>
   );
 };

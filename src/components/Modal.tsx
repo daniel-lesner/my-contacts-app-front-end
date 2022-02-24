@@ -23,16 +23,16 @@ const Container = styled.form`
 type ModalProps = {
   onFormSubmit: FormEventHandler<HTMLFormElement>;
   state: string;
-  mockData: Array<TContact>;
+  contactData: Array<TContact>;
 }
 
 const Modal = ({
   onFormSubmit,
   state,
-  mockData,
+  contactData,
 }: ModalProps) => {
   const [isEditModeOn, setEditModeOn] = useState(false);
-  const contact = mockData.find((item) => item.id === Number(state));
+  const contact = contactData.find((item) => item.id === Number(state));
 
   return (
     <Container onSubmit={onFormSubmit}>

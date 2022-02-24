@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Button from './Button';
+import shorthenAddress from '../utils/shortenAddress';
 
 const Main = styled.div`
   background-color: white;
@@ -16,7 +17,7 @@ const Main = styled.div`
 `;
 
 type AddressBarProps = {
-  account: String;
+  account: string;
   disconnectWallet: any;
 }
 
@@ -26,9 +27,10 @@ const AddressBar = ({
 }: AddressBarProps) => (
   <Main>
     <span>
-      Connected with
-      {' '}
-      <b>{`${account.slice(0, 5)}...${account.slice(account.length - 3)}`}</b>
+      {'Connected with '}
+      <b>
+        {shorthenAddress(account)}
+      </b>
     </span>
     <Button onClick={disconnectWallet} color="grey">Disconnect</Button>
   </Main>

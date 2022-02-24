@@ -63,7 +63,7 @@ const App = () => {
   const [isModalOpen, setModalOpen] = useState('');
   const [contractInstance, setContractInstance] = useState<Contract>();
   const [isActionPending, setActionPending] = useState(false);
-  const [tags, setTags] = useState(['']);
+  const [tags, setTags] = useState<string[]>([]);
 
   const {
     account, library, activate, deactivate,

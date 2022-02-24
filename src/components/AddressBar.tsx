@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Button from './Button';
 
-const Main = styled.main`
+const Main = styled.div`
   background-color: white;
   padding: 0.4em 0;
   color: black;

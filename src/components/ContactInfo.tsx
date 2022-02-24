@@ -8,6 +8,45 @@ const Content = styled.div`
   text-align: left;
   font-size: inherit;
   margin: 0.4em 0.2em;
+
+  @media (max-width: 1025px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+`;
+
+const Row = styled.div`
+padding: 1.5em 0 4em;
+`;
+
+const Column = styled.div`
+  @media (min-width: 1025px) {
+    width: 50%;
+    float: left
+  }
+`;
+
+const TagsBox = styled.div`
+  text-align: center;
+`;
+
+const TagsGrid = styled.div`
+display: grid;
+
+@media (min-width: 768px) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 1024px) {
+  grid-template-columns: repeat(3, 1fr);
+}
+`;
+
+const TagElement = styled.div`
+  margin: 0 1em;
 `;
 
 type ContactInfoProps = {
@@ -32,33 +71,49 @@ const ContactInfo = ({
       <div style={{ textAlign: 'center' }}>
         <img src={object.picture} alt="Contact" style={{ maxWidth: '15%', height: 'auto' }} />
       </div>
-      <div>
-        Phone number:
-        {' '}
-        {object.phoneNumber}
-      </div>
-      <div>
-        {`Email address: ${object.email}`}
-      </div>
-      <div>
-        {`Age: ${object.age}`}
-      </div>
-      <div>
-        Website:
-        {' '}
-        <a href={object.link} target="_blank" rel="noreferrer">
-          {object.link}
-        </a>
-      </div>
-      <div>
+      <Row>
+        <Column>
+          <div>
+            <b>
+              Phone number:
+            </b>
+            {' '}
+            {object.phoneNumber}
+          </div>
+          <div>
+            <b>Age: </b>
+            {object.age}
+          </div>
+        </Column>
+        <Column>
+          <div>
+            <b>Email address: </b>
+            <a href={`mailto: ${object.email}`}>
+              {object.email}
+            </a>
+          </div>
+          <div>
+            <b>
+              Website:
+            </b>
+            {' '}
+            <a href={object.link} target="_blank" rel="noreferrer">
+              {object.link}
+            </a>
+          </div>
+        </Column>
+      </Row>
+      <TagsBox>
         <div>
-          Tags:
+          <b>
+            Tags:
+          </b>
           {' '}
         </div>
-        <div>
-          {object.tags.map((item) => <span>{item}</span>)}
-        </div>
-      </div>
+        <TagsGrid>
+          {object.tags.map((item) => <TagElement>{item}</TagElement>)}
+        </TagsGrid>
+      </TagsBox>
       <div style={{ textAlign: 'center', marginTop: '2em' }}>
         <Button
           onClick={() => setEditModeOn(!isEditModeOn)}

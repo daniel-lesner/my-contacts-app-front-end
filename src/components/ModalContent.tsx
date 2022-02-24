@@ -77,7 +77,7 @@ const ModalContent = ({ object, tags, setTags } : ModalContentProps) => {
         />
         <FormBox
           name="picture"
-          text="Picture"
+          text="Picture Link"
           formValue={object && object.picture}
         />
         <FormBox

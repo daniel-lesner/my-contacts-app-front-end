@@ -111,7 +111,7 @@ const ContactInfo = ({
           {' '}
         </div>
         <TagsGrid>
-          {object.tags.map((item) => <TagElement>{item}</TagElement>)}
+          {object.tags.map((item) => <TagElement key={item}>{item}</TagElement>)}
         </TagsGrid>
       </TagsBox>
       <div style={{ textAlign: 'center', marginTop: '2em' }}>

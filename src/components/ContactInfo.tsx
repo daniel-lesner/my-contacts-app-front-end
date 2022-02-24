@@ -50,11 +50,14 @@ const ContactInfo = ({
           {object.link}
         </a>
       </div>
-
       <div>
-        Tags:
-        {' '}
-        {object.tags}
+        <div>
+          Tags:
+          {' '}
+        </div>
+        <div>
+          {object.tags.map((item) => <span>{item}</span>)}
+        </div>
       </div>
       <div style={{ textAlign: 'center', marginTop: '2em' }}>
         <Button

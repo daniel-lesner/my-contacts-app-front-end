@@ -55,7 +55,7 @@ export type TContact = {
   age: number;
   picture?: string;
   link: string;
-  tags: Array<string>;
+  tags: string[];
 };
 
 const App = () => {
@@ -63,6 +63,7 @@ const App = () => {
   const [isModalOpen, setModalOpen] = useState('');
   const [contractInstance, setContractInstance] = useState<Contract>();
   const [isActionPending, setActionPending] = useState(false);
+  const [tags, setTags] = useState(['']);
 
   const {
     account, library, activate, deactivate,
@@ -167,9 +168,11 @@ const App = () => {
 
     const data = new FormData(event.target);
     const formObject = Object.fromEntries(data.entries());
+    const formObjectWithTags = { ...formObject, tags };
+    setTags([]);
 
-    if (isModalOpen === 'new') createContact(formObject);
-    else updateContact(Number(isModalOpen), formObject);
+    if (isModalOpen === 'new') createContact(formObjectWithTags);
+    else updateContact(Number(isModalOpen), formObjectWithTags);
 
     setModalOpen('');
 
@@ -193,6 +196,8 @@ const App = () => {
           onFormSubmit={onFormSubmit}
           state={isModalOpen}
           contactData={contactData}
+          tags={tags}
+          setTags={setTags}
         />
       )}
       {account && <AddressBar account={account} disconnectWallet={disconnectWallet} />}
@@ -200,7 +205,6 @@ const App = () => {
         {account
           ? (
             <>
-
               {isActionPending
                 ? <LoadingIcon />
                 : (

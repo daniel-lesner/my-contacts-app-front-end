@@ -24,12 +24,16 @@ type ModalProps = {
   onFormSubmit: FormEventHandler<HTMLFormElement>;
   state: string;
   contactData: Array<TContact>;
+  tags: Array<string>;
+  setTags: React.Dispatch<React.SetStateAction<Array<string>>>;
 }
 
 const Modal = ({
   onFormSubmit,
   state,
   contactData,
+  tags,
+  setTags,
 }: ModalProps) => {
   const [isEditModeOn, setEditModeOn] = useState(false);
   const contact = contactData.find((item) => item.id === Number(state));
@@ -37,11 +41,11 @@ const Modal = ({
   return (
     <Container onSubmit={onFormSubmit}>
       {state === 'new' ? (
-        <ModalContent />
+        <ModalContent tags={tags} setTags={setTags} />
       ) : (
         <div>
           {isEditModeOn ? (
-            <ModalContent object={contact} />
+            <ModalContent object={contact} tags={tags} setTags={setTags} />
           ) : (
             <ContactInfo
               object={contact}

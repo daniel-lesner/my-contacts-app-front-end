@@ -12,7 +12,7 @@ const Form = styled.div`
 `;
 
 const Label = styled.label`
-width: 100%;
+  width: 100%;
   margin-bottom: 0.4rem;
   font-size: inherit;
 `;

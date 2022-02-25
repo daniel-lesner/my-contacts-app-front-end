@@ -19,7 +19,6 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: center;
   color: white;
 `;
 
@@ -113,7 +112,6 @@ const App = () => {
     setActionPending(false);
   };
 
-  // SOLVEIT - any
   const createContact = async (newObject: any) => {
     setActionPending(true);
 
@@ -146,7 +144,6 @@ const App = () => {
     }
   };
 
-  // SOLVEIT - any
   const updateContact = async (id: number, updatedObject: any) => {
     setActionPending(true);
     try {
@@ -162,7 +159,6 @@ const App = () => {
     }
   };
 
-  // SOLVEIT
   const onFormSubmit = (event: any) => {
     event.preventDefault();
 

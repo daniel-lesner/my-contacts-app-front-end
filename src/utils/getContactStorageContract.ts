@@ -1,4 +1,4 @@
-import ABI from 'smart-contracts-abis/ContactStorage.json';
+import ABI from 'smart-contracts-abis/build/contracts/ContactStorage.json';
 import { Contract } from 'ethers';
 import configData from '../config.js';
 

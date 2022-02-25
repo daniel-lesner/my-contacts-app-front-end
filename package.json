@@ -21,12 +21,13 @@
     "assert": "^2.0.0",
     "crypto-browserify": "^3.12.0",
     "ethers": "^5.5.4",
+    "gh-pages": "^3.2.3",
     "os-browserify": "^0.3.0",
     "react": "^17.0.2",
     "react-app-rewired": "^2.2.1",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
-    "smart-contracts-abis": "https://gitpkg.now.sh/daniel-lesner/my-contacts-app-smart-contracts/build/contracts?master",
+    "smart-contracts-abis": "git+ssh://git@github.com:daniel-lesner/my-contacts-app-smart-contracts.git#master",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "typescript": "^4.4.2",
@@ -35,6 +36,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -61,5 +64,6 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0"
-  }
+  },
+  "homepage": "https://daniel-lesner.github.io/my-contacts-app"
 }

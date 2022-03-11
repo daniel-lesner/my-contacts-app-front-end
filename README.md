@@ -11,7 +11,7 @@ Make sure you have the metamask browser extension installed and set on Binance S
 
 # App is deployed using gh-pages
 
-https://daniel-lesner.github.io/my-contacts-app/
+https://daniel-lesner.github.io/my-contacts-app-front-end/
 
 You can use a test wallet that has BNB testnet using the following private key:
 `be22eff7e5724a5c05c4fd2880214af26df67314e729517df9e3af10bccf5788`
